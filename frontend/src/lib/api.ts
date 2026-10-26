@@ -4,8 +4,24 @@ import {
   RequirementStats,
 } from '../types/requirement';
 
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+function getApiBase(): string {
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+  if (typeof window !== 'undefined') {
+    return '/api';
+  }
+  return 'http://localhost:5001/api';
+}
+
+function buildApiUrl(endpoint: string): string {
+  const base = getApiBase();
+  if (base.startsWith('http://') || base.startsWith('https://')) {
+    return `${base.replace(/\/$/, '')}/${endpoint.replace(/^\//, '')}`;
+  }
+  // Relative URL in browser
+  return `${base.replace(/\/$/, '')}/${endpoint.replace(/^\//, '')}`;
+}
 
 export interface ApiResponse<T> {
   success: boolean;
@@ -23,7 +39,8 @@ export interface ApiResponse<T> {
 export async function createRequirement(
   payload: RequirementFormData
 ): Promise<ApiResponse<SavedRequirement>> {
-  const res = await fetch(`${API_BASE}/requirements`, {
+  const url = buildApiUrl('/requirements');
+  const res = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -45,7 +62,17 @@ export async function getRequirements(params?: {
   page?: number;
   limit?: number;
 }): Promise<ApiResponse<SavedRequirement[]>> {
-  const url = new URL(`${API_BASE}/requirements`);
+  const base = getApiBase();
+  let url: URL;
+
+  if (base.startsWith('http://') || base.startsWith('https://')) {
+    url = new URL(`${base.replace(/\/$/, '')}/requirements`);
+  } else if (typeof window !== 'undefined') {
+    url = new URL(`${base.replace(/\/$/, '')}/requirements`, window.location.origin);
+  } else {
+    url = new URL('http://localhost:5001/api/requirements');
+  }
+
   if (params?.category && params.category !== 'all') {
     url.searchParams.set('category', params.category);
   }
@@ -75,7 +102,8 @@ export async function getRequirements(params?: {
 export async function getRequirementById(
   id: string
 ): Promise<ApiResponse<SavedRequirement>> {
-  const res = await fetch(`${API_BASE}/requirements/${id}`, {
+  const url = buildApiUrl(`/requirements/${id}`);
+  const res = await fetch(url, {
     cache: 'no-store',
   });
   const data = await res.json();
@@ -86,7 +114,8 @@ export async function getRequirementById(
 }
 
 export async function getStats(): Promise<ApiResponse<RequirementStats>> {
-  const res = await fetch(`${API_BASE}/requirements/stats`, {
+  const url = buildApiUrl('/requirements/stats');
+  const res = await fetch(url, {
     cache: 'no-store',
   });
   const data = await res.json();
@@ -97,7 +126,8 @@ export async function getStats(): Promise<ApiResponse<RequirementStats>> {
 }
 
 export async function seedRequirements(): Promise<ApiResponse<SavedRequirement[]>> {
-  const res = await fetch(`${API_BASE}/requirements/seed`, {
+  const url = buildApiUrl('/requirements/seed');
+  const res = await fetch(url, {
     method: 'POST',
   });
   const data = await res.json();
@@ -109,7 +139,8 @@ export async function seedRequirements(): Promise<ApiResponse<SavedRequirement[]
 
 export async function checkApiHealth(): Promise<{ healthy: boolean; status?: string }> {
   try {
-    const res = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(3000) });
+    const url = buildApiUrl('/health');
+    const res = await fetch(url, { signal: AbortSignal.timeout(3000) });
     if (res.ok) {
       const data = await res.json();
       return { healthy: true, status: data.status };
