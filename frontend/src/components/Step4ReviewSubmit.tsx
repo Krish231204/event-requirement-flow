@@ -103,7 +103,7 @@ export default function Step4ReviewSubmit({
           </span>
         </h2>
         <p className="text-slate-500 text-sm mt-1">
-          Verify all event specifications, supply your contact details, and publish to GoPratle.
+          Verify all event specifications, supply your contact details, and publish to the database.
         </p>
       </div>
 
@@ -464,7 +464,7 @@ export default function Step4ReviewSubmit({
           className="mt-0.5 w-4 h-4 rounded border-slate-300 text-[#FF4C18] focus:ring-[#FF4C18]"
         />
         <label htmlFor="terms" className="text-xs text-slate-600 select-none cursor-pointer">
-          I confirm that the requirement details provided above are accurate and grant GoPratle permission to publish and store this event requirement in the database.
+          I confirm that the requirement details provided above are accurate and grant permission to publish and store this event requirement in the database.
         </label>
       </div>
 
@@ -482,12 +482,12 @@ export default function Step4ReviewSubmit({
           {isSubmitting ? (
             <>
               <Loader2 className="w-5 h-5 animate-spin" />
-              <span>Saving Requirement to GoPratle...</span>
+              <span>Saving Requirement to Database...</span>
             </>
           ) : (
             <>
               <Send className="w-4 h-4" />
-              <span>Post Requirement to GoPratle</span>
+              <span>Post Requirement Now</span>
             </>
           )}
         </button>

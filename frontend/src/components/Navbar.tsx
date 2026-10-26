@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Layers, PlusCircle } from 'lucide-react';
+import { Layers, PlusCircle, Sparkles } from 'lucide-react';
 import { checkApiHealth } from '../lib/api';
 
 export default function Navbar({
@@ -33,31 +33,22 @@ export default function Navbar({
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-white/95 border-b border-slate-200/80 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* GoPratle Brand Logo & Title */}
+        {/* Brand Logo & Title */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#FF4C18] to-[#FF6B3D] flex items-center justify-center shadow-md shadow-[#FF4C18]/25 group-hover:scale-105 transition-transform overflow-hidden p-1.5">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://res.cloudinary.com/de6aivvo3/image/upload/v1748882547/Logo_1_qy4auw.png"
-              alt="GoPratle Logo"
-              className="w-full h-full object-contain filter brightness-0 invert"
-              onError={(e) => {
-                // fallback if image blocked
-                (e.target as HTMLElement).style.display = 'none';
-              }}
-            />
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#FF4C18] to-[#FF7A45] flex items-center justify-center shadow-md shadow-[#FF4C18]/25 group-hover:scale-105 transition-transform text-white">
+            <Sparkles className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-xl tracking-tight text-slate-900">
-                Go<span className="text-[#FF4C18]">Pratle</span>
+                Stage<span className="text-[#FF4C18]">Sync</span>
               </span>
               <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-[#FF4C18]/10 text-[#FF4C18] border border-[#FF4C18]/20">
                 Requirement Flow
               </span>
             </div>
             <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
-              Your One-Stop Destination for Every Occasion
+              Your One-Stop Event Talent & Crew Platform
             </p>
           </div>
         </Link>

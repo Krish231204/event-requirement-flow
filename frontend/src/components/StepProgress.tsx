@@ -53,7 +53,7 @@ export default function StepProgress({
   const steps = getStepTitles();
   const progressPercent = ((currentStep - 1) / (steps.length - 1)) * 100;
 
-  // Pratle signature primary color `#FF4C18`
+  // Signature primary color `#FF4C18`
   const theme = {
     activeBg: 'bg-[#FF4C18]',
     activeRing: 'ring-[#FF4C18]/25',

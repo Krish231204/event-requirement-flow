@@ -113,7 +113,7 @@ export default function RequirementsFeedPage() {
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#FF4C18] text-xs font-bold border border-orange-200 mb-2">
               <Database className="w-3.5 h-3.5" />
-              <span>GoPratle MongoDB Live Directory</span>
+              <span>Live MongoDB Directory Feed</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
               Event Requirements Directory

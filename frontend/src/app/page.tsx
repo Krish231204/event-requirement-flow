@@ -23,7 +23,7 @@ import {
 import { createRequirement } from '../lib/api';
 import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react';
 
-const DRAFT_STORAGE_KEY = 'gopratle_requirement_draft_v1';
+const DRAFT_STORAGE_KEY = 'stagesync_requirement_draft_v1';
 
 export default function PostRequirementPage() {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -357,7 +357,7 @@ export default function PostRequirementPage() {
       <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-semibold text-slate-700">
-            GoPratle Requirement Flow • Built for GoPratle
+            StageSync Requirement Flow • Event Talent & Staffing Platform
           </p>
           <div className="flex items-center gap-4 text-slate-500">
             <span>Adaptive Forms</span>

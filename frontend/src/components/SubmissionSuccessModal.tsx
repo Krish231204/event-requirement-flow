@@ -86,7 +86,7 @@ export default function SubmissionSuccessModal({
       <div className="space-y-2">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#FF4C18] text-xs font-bold border border-orange-200">
           <Database className="w-3.5 h-3.5" />
-          <span>Saved to GoPratle Database Successfully</span>
+          <span>Saved to MongoDB Database Successfully</span>
         </div>
         <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
           Requirement Published!
