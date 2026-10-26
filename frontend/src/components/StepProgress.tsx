@@ -17,7 +17,6 @@ export default function StepProgress({
   onStepClick,
   completedSteps,
 }: StepProgressProps) {
-  // Category-specific dynamic titles for steps 2 & 3
   const getStepTitles = () => {
     switch (category) {
       case 'planner':
@@ -31,7 +30,7 @@ export default function StepProgress({
         return [
           { number: 1, title: 'Event Basics', subtitle: 'Type, dates & location', icon: Calendar },
           { number: 2, title: 'Performer & Tech', subtitle: 'Genre, sets & backline', icon: Sparkles },
-          { number: 3, title: 'Rider & Logistics', subtitle: 'Pay, soundcheck & hotel', icon: Sliders },
+          { number: 3, title: 'Rider & Logistics', subtitle: 'Pay, soundcheck & rider', icon: Sliders },
           { number: 4, title: 'Review & Submit', subtitle: 'Confirm & contact info', icon: FileText },
         ];
       case 'crew':
@@ -54,55 +53,23 @@ export default function StepProgress({
   const steps = getStepTitles();
   const progressPercent = ((currentStep - 1) / (steps.length - 1)) * 100;
 
-  // Category accent styles
-  const getCategoryTheme = () => {
-    switch (category) {
-      case 'planner':
-        return {
-          activeBg: 'bg-emerald-500',
-          activeRing: 'ring-emerald-500/30',
-          progressBar: 'from-emerald-500 to-teal-400',
-          textAccent: 'text-emerald-400',
-          borderActive: 'border-emerald-500',
-        };
-      case 'performer':
-        return {
-          activeBg: 'bg-purple-600',
-          activeRing: 'ring-purple-500/30',
-          progressBar: 'from-purple-600 to-pink-500',
-          textAccent: 'text-purple-400',
-          borderActive: 'border-purple-500',
-        };
-      case 'crew':
-        return {
-          activeBg: 'bg-amber-500',
-          activeRing: 'ring-amber-500/30',
-          progressBar: 'from-amber-500 to-orange-400',
-          textAccent: 'text-amber-400',
-          borderActive: 'border-amber-500',
-        };
-      default:
-        return {
-          activeBg: 'bg-indigo-600',
-          activeRing: 'ring-indigo-500/30',
-          progressBar: 'from-indigo-600 to-blue-500',
-          textAccent: 'text-indigo-400',
-          borderActive: 'border-indigo-500',
-        };
-    }
+  // Pratle signature primary color `#FF4C18`
+  const theme = {
+    activeBg: 'bg-[#FF4C18]',
+    activeRing: 'ring-[#FF4C18]/25',
+    progressBar: 'from-[#FF4C18] to-[#FF7A45]',
+    textAccent: 'text-[#FF4C18]',
+    borderActive: 'border-[#FF4C18]',
   };
 
-  const theme = getCategoryTheme();
-
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-6">
-      {/* Visual step cards */}
+    <div className="w-full max-w-4xl mx-auto px-4 py-4 sm:py-6">
       <div className="relative">
         {/* Background track */}
-        <div className="absolute top-5 left-6 right-6 h-0.5 bg-slate-800 -z-0" />
+        <div className="absolute top-5 left-6 right-6 h-1 bg-slate-200 -z-0 rounded-full" />
         {/* Active progress fill */}
         <div
-          className={`absolute top-5 left-6 h-0.5 bg-gradient-to-r ${theme.progressBar} transition-all duration-500 ease-out -z-0`}
+          className={`absolute top-5 left-6 h-1 bg-gradient-to-r ${theme.progressBar} transition-all duration-500 ease-out -z-0 rounded-full`}
           style={{ width: `calc(${progressPercent}% * 0.9 + 2%)` }}
         />
 
@@ -127,18 +94,18 @@ export default function StepProgress({
                 <div className="flex flex-col items-center sm:items-start">
                   {/* Step Circle */}
                   <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center font-semibold text-sm transition-all duration-300 shadow-md ${
+                    className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm transition-all duration-300 shadow-sm ${
                       isCompleted && !isCurrent
-                        ? 'bg-slate-800 text-emerald-400 border border-emerald-500/40 hover:bg-slate-700'
+                        ? 'bg-emerald-50 text-emerald-600 border border-emerald-300 hover:bg-emerald-100'
                         : isCurrent
-                        ? `${theme.activeBg} text-white ring-4 ${theme.activeRing} scale-105`
-                        : 'bg-slate-800 text-slate-500 border border-slate-700/60'
+                        ? `${theme.activeBg} text-white ring-4 ${theme.activeRing} scale-105 shadow-md shadow-[#FF4C18]/25`
+                        : 'bg-white text-slate-400 border border-slate-200'
                     }`}
                   >
                     {isCompleted && !isCurrent ? (
                       <Check className="w-5 h-5 stroke-[2.5]" />
                     ) : (
-                      <Icon className="w-5 h-5" />
+                      <Icon className="w-4 h-4" />
                     )}
                   </div>
 
@@ -149,24 +116,24 @@ export default function StepProgress({
                         isCurrent
                           ? theme.textAccent
                           : isCompleted
-                          ? 'text-slate-300'
-                          : 'text-slate-500'
+                          ? 'text-slate-700'
+                          : 'text-slate-400'
                       }`}
                     >
                       Step 0{step.number}
                     </span>
                     <span
-                      className={`block text-xs sm:text-sm font-semibold truncate ${
+                      className={`block text-xs sm:text-sm font-bold truncate ${
                         isCurrent
-                          ? 'text-white'
+                          ? 'text-slate-900'
                           : isCompleted
-                          ? 'text-slate-300 group-hover:text-white'
-                          : 'text-slate-500'
+                          ? 'text-slate-700 group-hover:text-slate-900'
+                          : 'text-slate-400'
                       }`}
                     >
                       {step.title}
                     </span>
-                    <span className="hidden md:block text-[11px] text-slate-400 truncate">
+                    <span className="hidden md:block text-[11px] text-slate-500 truncate">
                       {step.subtitle}
                     </span>
                   </div>

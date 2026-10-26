@@ -23,7 +23,7 @@ import {
 import { createRequirement } from '../lib/api';
 import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react';
 
-const DRAFT_STORAGE_KEY = 'stagesync_requirement_draft_v1';
+const DRAFT_STORAGE_KEY = 'gopratle_requirement_draft_v1';
 
 export default function PostRequirementPage() {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -66,7 +66,6 @@ export default function PostRequirementPage() {
       ...prev,
       ...fields,
     }));
-    // Clear relevant error when field is edited
     setErrors({});
   };
 
@@ -203,7 +202,10 @@ export default function PostRequirementPage() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err: unknown) {
       console.error('Submission failed:', err);
-      const message = err instanceof Error ? err.message : 'Failed to submit requirement to the server. Please check your connection.';
+      const message =
+        err instanceof Error
+          ? err.message
+          : 'Failed to submit requirement to the server. Please check your connection.';
       setServerError(message);
     } finally {
       setIsSubmitting(false);
@@ -211,13 +213,12 @@ export default function PostRequirementPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-[#fafaf9] text-slate-900 flex flex-col font-sans selection:bg-[#FF4C18] selection:text-white">
       {/* Top Navigation */}
       <Navbar onLoadPreset={handleLoadPreset} />
 
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {submittedRequirement ? (
-          /* Success Screen */
           <SubmissionSuccessModal
             requirement={submittedRequirement}
             onReset={() => {
@@ -228,7 +229,6 @@ export default function PostRequirementPage() {
             }}
           />
         ) : (
-          /* Multi-Step Requirement Posting Flow */
           <div className="space-y-6">
             {/* Step Progress Tracker */}
             <StepProgress
@@ -239,7 +239,7 @@ export default function PostRequirementPage() {
             />
 
             {/* Step Card Container */}
-            <div className="rounded-3xl bg-slate-900/60 border border-slate-800/80 p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
+            <div className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-10 shadow-sm">
               {currentStep === 1 && (
                 <Step1EventBasics
                   data={formData}
@@ -309,13 +309,13 @@ export default function PostRequirementPage() {
 
               {/* Bottom Navigation Buttons (Steps 1 to 3) */}
               {currentStep < 4 && (
-                <div className="pt-8 mt-8 border-t border-slate-800/80 flex items-center justify-between gap-4">
+                <div className="pt-8 mt-8 border-t border-slate-100 flex items-center justify-between gap-4">
                   <div>
                     {currentStep > 1 ? (
                       <button
                         type="button"
                         onClick={handlePreviousStep}
-                        className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-2 border border-slate-700/60 transition-colors"
+                        className="px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold flex items-center gap-2 border border-slate-200 transition-colors shadow-xs"
                       >
                         <ArrowLeft className="w-4 h-4" />
                         <span>Previous Step</span>
@@ -324,7 +324,7 @@ export default function PostRequirementPage() {
                       <button
                         type="button"
                         onClick={handleResetForm}
-                        className="px-3.5 py-2 rounded-xl text-slate-400 hover:text-rose-400 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                        className="px-3.5 py-2 rounded-xl text-slate-500 hover:text-rose-600 text-xs font-semibold flex items-center gap-1.5 transition-colors"
                         title="Clear form and reset draft"
                       >
                         <RotateCcw className="w-3.5 h-3.5" />
@@ -334,13 +334,13 @@ export default function PostRequirementPage() {
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <span className="text-xs text-slate-400 hidden sm:inline">
+                    <span className="text-xs text-slate-500 font-medium hidden sm:inline">
                       Step {currentStep} of 4
                     </span>
                     <button
                       type="button"
                       onClick={handleNextStep}
-                      className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-indigo-600/25 transition-all hover:scale-[1.02]"
+                      className="px-6 py-3 rounded-xl bg-[#FF4C18] hover:bg-[#ea580c] text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-[#FF4C18]/25 transition-all hover:scale-[1.02]"
                     >
                       <span>Continue to Step {currentStep + 1}</span>
                       <ArrowRight className="w-4 h-4" />
@@ -354,17 +354,17 @@ export default function PostRequirementPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950/80 py-6 text-center text-xs text-slate-400">
+      <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p>
-            StageSync Requirement Flow • Powered by Next.js & Express + MongoDB
+          <p className="font-semibold text-slate-700">
+            GoPratle Requirement Flow • Built for GoPratle
           </p>
-          <div className="flex items-center gap-4 text-slate-400">
-            <span>Adaptive Multi-Step Form</span>
+          <div className="flex items-center gap-4 text-slate-500">
+            <span>Adaptive Forms</span>
             <span>•</span>
-            <span>Discriminator Schemas</span>
+            <span>Planner, Performer & Crew</span>
             <span>•</span>
-            <span>Instant Persistence</span>
+            <span>Express + MongoDB</span>
           </div>
         </div>
       </footer>
