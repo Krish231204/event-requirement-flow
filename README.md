@@ -237,46 +237,6 @@ POST /api/requirements/seed
 
 ---
 
-## 🎥 5-7 Minute Screen Recording Script & Walkthrough Notes
-
-Here is a structured walkthrough outline for your video submission:
-
-### 1. Introduction & Problem Understanding (~1:00 min)
-- *"Hello! Today I'm presenting StageSync, an end-to-end requirement posting flow for events. The objective was to build a dynamic multi-step posting experience with Next.js, backed by Node.js, Express, and MongoDB."*
-- Highlight the core requirement: Step 1 collects event basics and selects between **Event Planner**, **Performer**, or **Production Crew**, and Steps 2 and 3 dynamically adapt to surface fields uniquely relevant to that category.
-
-### 2. Frontend Architecture & Multi-Step Flow (~2:00 mins)
-- **Step 1 (Event Basics)**: Show entering event title, date range toggle, location, and venue status. Walk through the 3 category cards and show the visual feedback.
-- **Preset Quick-Fill**: Demonstrate clicking the header quick-fill button (`Royal Wedding`, `Festival DJ`, or `AV Crew`) to demonstrate rapid workflow testing.
-- **Steps 2 & 3 (Category Adaptation)**:
-  - Demonstrate **Planner**: point out Planning Service Level, Guest Count stepper, Theme aesthetic, Budget range, and Deliverables checkboxes.
-  - Switch to **Performer**: show Performer Type, Format & duration, Music genres, PA toggle, Microphone stepper, In-Ear monitors, Backline equipment, and Hospitality rider.
-  - Switch to **Crew**: showcase the dynamic crew table where multiple roles can be added with headcount and shift call/wrap times, live headcount summing, experience levels, and day/hourly pay rates.
-- **Step 4 (Review & Submit)**: Show the structured review card with edit shortcuts, enter contact information, and click **Post Requirement**. Point out the confetti celebration, reference code generation (`PLA-2026-...`), and 1-click clipboard copy.
-
-### 3. Backend, API Request/Response & MongoDB Flow (~1:30 mins)
-- Open developer tools (Network tab) or terminal:
-  - Show the `POST /api/requirements` request payload and `201 Created` response.
-  - Explain how the Express validator ensures required fields and how the Mongoose pre-save hook generates unique tracking codes.
-  - Explain data partitioning: how `plannerDetails`, `performerDetails`, and `crewDetails` are isolated based on the category discriminator.
-
-### 4. Live Requirements Board & Database Verification (~1:00 min)
-- Navigate to `/requirements`.
-- Show how the newly posted requirement appears immediately in the directory.
-- Click the category filter tabs (`Planners`, `Performers`, `Crew`) to prove data classification in MongoDB.
-- Open the **View Full Details** modal to display the persisted MongoDB document.
-
-### 5. Edge Cases, Testing & Future Improvements (~0:45 min)
-- **Testing**: Mention the automated test suite (`npm test`) covering all endpoints, discriminators, and validation rules.
-- **Edge cases handled**: Draft saving across page reloads via `localStorage`, date range validation, duplicate key prevention, and zero-config in-memory MongoDB fallback.
-- **What I would improve next**:
-  - Authentication & Poster dashboard (JWT / NextAuth).
-  - Direct candidate applications or bid proposals on posted requirements.
-  - Real-time notifications via WebSockets or email (SendGrid/Resend) when applicants respond.
-  - Image / file uploads for venue floorplans and technical riders (AWS S3 / Cloudinary).
-
----
-
 ## 🌐 Deployment Instructions
 
 ### Deploying Frontend to Vercel:
