@@ -155,6 +155,53 @@ export default function Step1EventBasics({ data, updateData, errors }: Step1Prop
             );
           })}
         </div>
+
+        {/* Dynamic Category Context Banner */}
+        <div
+          className={`rounded-2xl p-4 border transition-all mt-4 ${
+            data.category === 'performer'
+              ? 'bg-purple-50/80 border-purple-200 text-purple-950'
+              : data.category === 'crew'
+              ? 'bg-blue-50/80 border-blue-200 text-blue-950'
+              : 'bg-orange-50/80 border-orange-200 text-orange-950'
+          }`}
+        >
+          <div className="flex items-start gap-3">
+            <span className="text-2xl leading-none">
+              {data.category === 'performer' ? '🎵' : data.category === 'crew' ? '🛠️' : '📋'}
+            </span>
+            <div className="text-xs space-y-1">
+              <p className="font-bold text-sm">
+                {data.category === 'performer' && 'Performer & Artist Selected'}
+                {data.category === 'planner' && 'Event Planner Selected'}
+                {data.category === 'crew' && 'Production Crew Selected'}
+              </p>
+              <p className="text-slate-600 leading-relaxed">
+                {data.category === 'performer' && (
+                  <>
+                    Step 1 gathers universal event basics below (Name, Date, Location). In{' '}
+                    <strong className="text-purple-700">Step 2 & 3</strong>, you will configure{' '}
+                    <strong>Performer Types, Musical Genres, Set Duration, PA & Microphones, and Backline Gear</strong>.
+                  </>
+                )}
+                {data.category === 'planner' && (
+                  <>
+                    Step 1 gathers universal event basics below (Name, Date, Location). In{' '}
+                    <strong className="text-[#FF4C18]">Step 2 & 3</strong>, you will configure{' '}
+                    <strong>Planning Scope, Guest Counts, Aesthetic Themes, and Target Budgets</strong>.
+                  </>
+                )}
+                {data.category === 'crew' && (
+                  <>
+                    Step 1 gathers universal event basics below (Name, Date, Location). In{' '}
+                    <strong className="text-blue-700">Step 2 & 3</strong>, you will configure{' '}
+                    <strong>Specific Roles, Headcounts, Call/Wrap Times, and Pay Rates</strong>.
+                  </>
+                )}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Part B: Event Name & Event Type */}

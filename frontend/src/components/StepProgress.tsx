@@ -77,7 +77,7 @@ export default function StepProgress({
           {steps.map((step) => {
             const isCompleted = completedSteps.includes(step.number);
             const isCurrent = currentStep === step.number;
-            const isClickable = isCompleted || step.number < currentStep;
+            const isClickable = true; // Allow direct navigation to any step for easy exploration & demos
 
             const Icon = step.icon;
 

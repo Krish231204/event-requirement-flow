@@ -186,6 +186,23 @@ export default function PostRequirementPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const getNextStepLabel = () => {
+    if (currentStep === 1) {
+      if (formData.category === 'performer') return 'Continue to Step 2: Performer & Tech';
+      if (formData.category === 'crew') return 'Continue to Step 2: Crew & Headcount';
+      return 'Continue to Step 2: Planning Scope';
+    }
+    if (currentStep === 2) {
+      if (formData.category === 'performer') return 'Continue to Step 3: Rider & Logistics';
+      if (formData.category === 'crew') return 'Continue to Step 3: Rates & Equipment';
+      return 'Continue to Step 3: Services & Budget';
+    }
+    if (currentStep === 3) {
+      return 'Continue to Step 4: Review & Submit';
+    }
+    return `Continue to Step ${currentStep + 1}`;
+  };
+
   // Submit to Node + Express + MongoDB backend
   const handleFinalSubmit = async () => {
     if (!validateStep(4)) {
@@ -342,7 +359,7 @@ export default function PostRequirementPage() {
                       onClick={handleNextStep}
                       className="px-6 py-3 rounded-xl bg-[#FF4C18] hover:bg-[#ea580c] text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-[#FF4C18]/25 transition-all hover:scale-[1.02]"
                     >
-                      <span>Continue to Step {currentStep + 1}</span>
+                      <span>{getNextStepLabel()}</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
